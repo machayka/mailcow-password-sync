@@ -16,6 +16,6 @@ Mapping: Nextcloud username → username@najmuje.eu in Mailcow.
     <namespace>MailcowPasswordSync</namespace>
     <category>tools</category>
     <dependencies>
-        <nextcloud min-version="25" max-version="31" />
+        <nextcloud min-version="25" max-version="33" />
     </dependencies>
 </info>
