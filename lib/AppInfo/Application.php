@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/**
+ * SPDX-FileCopyrightText: 2025 Banner Digital sp. z o.o.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 namespace OCA\MailcowPasswordSync\AppInfo;
 
 use OCA\MailcowPasswordSync\Listener\PasswordChangeListener;

@@ -12,7 +12,7 @@ Mapping: Nextcloud username → username@najmuje.eu in Mailcow.
     ]]></description>
     <version>1.0.0</version>
     <licence>agpl</licence>
-    <author>Banner Digital sp. z o. o.</author>
+    <author>Banner Digital sp. z o.o.</author>
     <namespace>MailcowPasswordSync</namespace>
     <category>tools</category>
     <dependencies>
