@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>mailcow_password_sync</id>
+    <name>Mailcow Password Sync</name>
+    <summary>Synchronizes user passwords to Mailcow mail server</summary>
+    <description><![CDATA[
+When a user changes their password in Nextcloud, this app automatically
+updates the corresponding mailbox password in Mailcow via its API.
+
+Mapping: Nextcloud username → username@najmuje.eu in Mailcow.
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>Banner Digital sp. z o. o.</author>
+    <namespace>MailcowPasswordSync</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="25" max-version="31" />
+    </dependencies>
+</info>
