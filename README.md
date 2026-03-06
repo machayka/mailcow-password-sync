@@ -17,13 +17,14 @@ użytkownika do Mailcow po każdej zmianie hasła w Nextcloud.
 
 ## Instalacja
 
-### 1. Skopiuj aplikację do Nextcloud
-
-Ponieważ używasz **Nextcloud AIO** (Docker), musisz wgrać app do kontenera:
+### 1. Sklonuj repozytorium i skopiuj do Nextcloud
 
 ```bash
-# Skopiuj folder do kontenera nextcloud-aio-nextcloud
-docker cp mailcow_password_sync nextcloud-aio-nextcloud:/var/www/html/custom_apps/mailcow_password_sync
+# Sklonuj repo na serwer
+git clone https://github.com/machayka/mailcow-password-sync.git
+
+# Skopiuj do kontenera Nextcloud AIO jako custom_apps
+docker cp mailcow-password-sync nextcloud-aio-nextcloud:/var/www/html/custom_apps/mailcow_password_sync
 ```
 
 > **Uwaga:** W Nextcloud AIO katalog `custom_apps` jest persystentny
@@ -55,6 +56,20 @@ docker exec -u www-data nextcloud-aio-nextcloud php occ config:app:set \
 # Domena email (domyślnie: najmuje.eu)
 docker exec -u www-data nextcloud-aio-nextcloud php occ config:app:set \
   mailcow_password_sync mail_domain --value="najmuje.eu"
+```
+
+---
+
+## Aktualizacja
+
+```bash
+# Na serwerze, w katalogu gdzie sklonowałeś repo
+cd mailcow-password-sync
+git pull
+
+# Skopiuj zaktualizowane pliki do kontenera
+docker cp . nextcloud-aio-nextcloud:/var/www/html/custom_apps/mailcow_password_sync
+docker exec nextcloud-aio-nextcloud chown -R www-data:www-data /var/www/html/custom_apps/mailcow_password_sync
 ```
 
 ---
@@ -113,7 +128,7 @@ MailcowPasswordSync: Password synced successfully for testuser@najmuje.eu.
 ## Struktura plików
 
 ```
-mailcow_password_sync/
+mailcow-password-sync/
 ├── appinfo/
 │   └── info.xml              # Rejestracja aplikacji
 ├── composer.json              # Autoloading PSR-4
