@@ -85,22 +85,39 @@ docker exec nextcloud-aio-nextcloud chown -R www-data:www-data /var/www/html/cus
 
 ## Weryfikacja
 
-Po instalacji zmień hasło dowolnego użytkownika testowego:
+### 1. Włącz logi i monitoruj w czasie rzeczywistym
 
 ```bash
-docker exec -u www-data nextcloud-aio-nextcloud php occ user:resetpassword testuser
+# Ustaw poziom logów na Info (jeśli jeszcze nie ustawiony)
+docker exec -u www-data nextcloud-aio-nextcloud php occ log:manage --level=info
+
+# Otwórz logi z filtrem na mailcow (zostaw ten terminal otwarty)
+docker exec nextcloud-aio-nextcloud tail -f /var/www/html/data/nextcloud.log | grep --line-buffered -i mailcow
 ```
 
-Sprawdź logi Nextcloud:
+### 2. Zresetuj hasło z terminala
+
+W drugim terminalu:
 
 ```bash
-docker exec nextcloud-aio-nextcloud cat /var/www/html/data/nextcloud.log | grep MailcowPasswordSync
+docker exec -u www-data -e OC_PASS="NoweHaslo789!" nextcloud-aio-nextcloud \
+  php occ user:resetpassword --password-from-env jankowalski
 ```
 
-Poprawny wynik:
+W logach powinno pojawić się:
 ```
-MailcowPasswordSync: Password synced successfully for testuser@najmuje.eu.
+MailcowPasswordSync: Password synced successfully for jankowalski@najmuje.eu.
 ```
+
+### 3. Zmień hasło z przeglądarki
+
+Zaloguj się do Nextcloud jako admin, przejdź do **Użytkownicy** i zmień hasło
+wybranego użytkownika. W logach powinien pojawić się analogiczny wpis.
+
+### 4. Zaloguj się do poczty nowym hasłem
+
+Otwórz webmail Mailcow i zaloguj się na konto `jankowalski@najmuje.eu`
+używając nowego hasła. Jeśli logowanie się powiedzie — synchronizacja działa poprawnie.
 
 ---
 
